@@ -6,21 +6,22 @@ public class Scaler : MonoBehaviour
 
     private float _stepOfChangeScale = 0.0005f;
     private float _scale = 1;
-    private float _minScale = 1;
     private float _reductor = 1000;
 
-    void Update()
+    private void Update()
     {
-        transform.localScale = new Vector3(GetScale(), GetScale(), GetScale());
+        transform.localScale = Vector3.one * GetScale();
     }
 
     private float GetScale()
     {
-        _scale += _stepOfChangeScale + _speedOfChangeScale / _reductor;
-
-        if (_scale < _minScale)
+        if (_speedOfChangeScale >= 0)
         {
-            _scale = _minScale;
+            _scale += _stepOfChangeScale + _speedOfChangeScale / _reductor;
+        }
+        else 
+        {
+            _scale += _stepOfChangeScale;
         }
 
         return _scale;
